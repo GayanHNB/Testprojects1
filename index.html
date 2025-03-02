@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Procurement Platform</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body { background-color: #f8f9fa; }
+    .hidden { display: none; color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <h2 class="text-center">Procurement Request Form</h2>
+    <form id="requestForm" class="bg-white p-4 rounded shadow-sm">
+      <div class="mb-3">
+        <label for="item" class="form-label">Item Name:</label>
+        <input type="text" id="item" class="form-control" required oninput="showPreviousPrice()" />
+        <span id="prevPrice" class="hidden"></span>
+      </div>
+      <div class="mb-3 row">
+        <div class="col">
+          <label for="quantityValue" class="form-label">Quantity:</label>
+          <input type="number" id="quantityValue" class="form-control" placeholder="Enter quantity" required />
+        </div>
+        <div class="col">
+          <label for="quantityUnit" class="form-label">Unit:</label>
+          <select id="quantityUnit" class="form-select" required>
+            <option value="Kg">Kg</option>
+            <option value="pieces">Pieces</option>
+            <option value="boxes">Boxes</option>
+            <option value="cases">Cases</option>
+            <option value="units">Units</option>
+          </select>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="marginValue" class="form-label">Margin (%):</label>
+        <input type="number" id="marginValue" class="form-control" placeholder="Enter margin" required />
+      </div>
+      <button type="button" class="btn btn-primary w-100" onclick="addItem()">Add to List</button>
+    </form>
+    
+    <h2 class="text-center mt-4">Requested Items</h2>
+    <table class="table table-bordered bg-white mt-3">
+      <thead class="table-primary">
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Supplier Price</th>
+          <th>Margin (%)</th>
+          <th>Final Quotation</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="itemsTableBody"></tbody>
+    </table>
+    <div class="d-flex gap-2">
+      <button class="btn btn-success" onclick="generateQuotation()">Generate Quotation</button>
+      <button class="btn btn-warning" onclick="generateInvoice()">Generate Invoice</button>
+    </div>
+    <h2 class="mt-4">Quotation Preview</h2>
+    <pre id="quotationOutput"></pre>
+    <h2>Invoice Preview</h2>
+    <pre id="invoiceOutput"></pre>
+  </div>
+</body>
+</html>
